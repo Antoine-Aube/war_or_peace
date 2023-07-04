@@ -6,14 +6,15 @@ class Turn
     @spoils_of_war = []
   end 
   def type 
-    if player1.deck.cards[0].value == player2.deck.cards[0].value
-      :war
-    # elsif player1.deck.cards[0].value < player2.deck.cards[0].value
-    #   :basic
-    # elsif player1.deck.cards[0].value > player2.deck.cards[0].value
-    #   :basic
-    elsif player1.deck.cards[0].value == player2.deck.cards[0].value && player1.deck.cards[2].value == player2.deck.cards[2].value
+    if player1.deck.cards[0].rank == player2.deck.cards[0].rank && player1.deck.cards[2].rank == player2.deck.cards[2].rank 
       :mutually_assured_destruction
+      
+      # elsif player1.deck.cards[0].value < player2.deck.cards[0].value
+      #   :basic
+      # elsif player1.deck.cards[0].value > player2.deck.cards[0].value
+      #   :basic
+    elsif player1.deck.cards[0].rank == player2.deck.cards[0].rank 
+      :war
     else
       :basic
     end
@@ -22,7 +23,9 @@ class Turn
     if self.type == :basic 
       player1.deck.cards[0].rank > player2.deck.cards[0].rank ? player1 : player2
     elsif self.type == :war
-      player1.deck.cards[2].rank > player2.deck.cards[2].rank ? player1 : player2   
+      player1.deck.cards[2].rank > player2.deck.cards[2].rank ? player1 : player2 
+    else self.type == :mutually_assured_destruction
+      "No Winner"
     end
   end
   def award_spoils(player)
@@ -41,8 +44,9 @@ class Turn
       @spoils_of_war << player2.deck.cards.shift(3)
       @spoils_of_war.flatten!
     else
-      player1.deck.cards.shift(3).split 
-      player2.deck.cards.shift(3).split
+      player1.deck.cards.shift(3)
+      player2.deck.cards.shift(3)
     end
   end
 end
+

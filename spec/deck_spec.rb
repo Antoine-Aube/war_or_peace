@@ -71,6 +71,6 @@ RSpec.describe Deck do
     expect(deck.cards).to include(card4)
     deck.high_ranking_cards
     expect(deck.percent_high_ranking).to eq(33.33)
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end 
 end
